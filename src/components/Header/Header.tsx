@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setActiveLink } from '../../features/headerSlice';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -10,7 +10,7 @@ import './Header.css';
 
 const Header = () => {
   const dispatch = useDispatch();
-  const activeLink = useSelector((state: { header: { activeLink: string } }) => state.header.activeLink);
+  // Удаляем неиспользуемую переменную activeLink, так как мы используем pathname для определения активной ссылки
   const pathname = usePathname();
   
   // Устанавливаем активную ссылку на основе текущего пути
@@ -31,7 +31,7 @@ const Header = () => {
         {navigationItems.map((item) => (
           <li
             key={item.id}
-             className={pathname === item.path ? "active" : ""}
+            className={pathname === item.path ? "active" : ""}
             onClick={() => handleLinkClick(item.id.toString())}
           >
             <Link href={item.path}>{item.title}</Link>
