@@ -1,0 +1,356 @@
+.contact {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, #3a1c71 0%, #d76d77 50%, #ffaf7b 100%);
+  color: white;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+.contactWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.infoCard {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.infoCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.iconWrapper {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #3a1c71 0%, #d76d77 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+
+.infoCard h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.infoCard p {
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.contactLink {
+  display: inline-block;
+  color: #3a1c71;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contactLink:hover {
+  color: #d76d77;
+}
+
+.contactForm {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.contactForm h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.formGroup input,
+.formGroup textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: #3a1c71;
+  box-shadow: 0 0 0 3px rgba(58, 28, 113, 0.2);
+}
+
+.submitButton {
+  background: linear-gradient(135deg, #3a1c71 0%, #d76d77 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+}
+
+.submitButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.successMessage {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.checkIcon {
+  width: 50px;
+  height: 50px;
+  color: #2ecc71;
+  margin-bottom: 1rem;
+}
+
+.successMessage p {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.faq {
+  margin-top: 4rem;
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.faqTitle {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #2c3e50;
+}
+
+.faqGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.faqItem {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #3a1c71;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.faqItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.faqItem h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  color: #2c3e50;
+}
+
+.faqItem p {
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .contactWrapper {
+    grid-template-columns: 1fr;
+  }
+  
+  .contactInfo {
+    order: 2;
+  }
+  
+  .contactForm {
+    order: 1;
+    margin-bottom: 2rem;
+  }
+  
+  .faqGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 1rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .contactForm, 
+  .infoCard, 
+  .faq {
+    padding: 1.5rem;
+  }
+  
+  .faqTitle {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .contactForm h2,
+  .faqTitle {
+    font-size: 1.5rem;
+  }
+  
+  .formGroup label,
+  .infoCard h3,
+  .faqItem h3 {
+    font-size: 1rem;
+  }
+  
+  .submitButton {
+    padding: 0.8rem 1.5rem;
+  }
+}
+
+/* Animation for form submission */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.successMessage {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Hover effects for form elements */
+.formGroup input:hover,
+.formGroup textarea:hover {
+  border-color: #d1d1d1;
+}
+
+/* Focus within effect for form groups */
+.formGroup:focus-within label {
+  color: #3a1c71;
+}
+
+/* Additional styling for the contact link */
+.contactLink::after {
+  content: ' →';
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+  transform: translateX(-5px);
+}
+
+.contactLink:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Styling for required form fields */
+.formGroup label::after {
+  content: '*';
+  color: #d76d77;
+  margin-left: 4px;
+}
+
+/* Custom scrollbar for textarea */
+.formGroup textarea {
+  scrollbar-width: thin;
+  scrollbar-color: #d76d77 #f0f0f0;
+}
+
+.formGroup textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.formGroup textarea::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+.formGroup textarea::-webkit-scrollbar-thumb {
+  background-color: #d76d77;
+  border-radius: 4px;
+}

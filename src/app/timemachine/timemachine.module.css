@@ -1,0 +1,843 @@
+.timeMachine {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, #3a1c71 0%, #d76d77 50%, #ffaf7b 100%);
+  color: white;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+.machineContainer {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.machinePanel {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.displaySection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.timeDisplay, .energyDisplay {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.displayLabel {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.yearValue {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.timeDistance {
+  font-size: 0.9rem;
+  color: #3a1c71;
+  font-weight: 600;
+}
+
+.energyBar {
+  height: 12px;
+  background-color: #ecf0f1;
+  border-radius: 6px;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.energyLevel {
+  height: 100%;
+  background-color: #2ecc71;
+  border-radius: 6px;
+  transition: width 0.5s ease, background-color 0.5s ease;
+}
+
+.energyValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.controlsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.dateControl, .locationControl {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.dateControl label, .locationControl label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.dateInputWrapper {
+  display: flex;
+  gap: 1rem;
+}
+
+.dateInput, .destinationInput {
+  padding: 0.8rem 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  flex-grow: 1;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dateInput:focus, .destinationInput:focus {
+  outline: none;
+  border-color: #3a1c71;
+  box-shadow: 0 0 0 3px rgba(58, 28, 113, 0.2);
+}
+
+.calendarButton {
+  padding: 0.8rem 1.5rem;
+  background-color: #f8f9fa;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #3a1c71;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.calendarButton:hover {
+  background-color: #e9ecef;
+}
+
+.calendarWrapper {
+  margin-top: 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.actionSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.travelButton {
+  background: linear-gradient(135deg, #3a1c71 0%, #d76d77 100%);
+  color: white;
+  border: none;
+  padding: 1.2rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.travelButton:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.travelButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.loading {
+  background: linear-gradient(135deg, #3a1c71 0%, #d76d77 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 2s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.loadingText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loadingDots::after {
+  content: '...';
+  animation: dots 1.5s steps(4, end) infinite;
+  width: 24px;
+  display: inline-block;
+  text-align: left;
+}
+
+@keyframes dots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60% { content: '...'; }
+  80%, 100% { content: ''; }
+}
+
+.statusMessage {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 600;
+  color: #3a1c71;
+  animation: fadeIn 0.5s ease;
+}
+
+.success {
+  background-color: #d4edda;
+  color: #155724;
+  border-left: 4px solid #28a745;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.machineVisualization {
+  background-color: #1a1a2e;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.timeVortex {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  perspective: 1000px;
+}
+
+.vortexRing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 2px solid rgba(215, 109, 119, 0.8);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: spin 8s linear infinite;
+}
+
+.vortexRing:nth-child(1) {
+  width: 200px;
+  height: 200px;
+  border-color: rgba(255, 175, 123, 0.8);
+  animation-duration: 10s;
+}
+
+.vortexRing:nth-child(2) {
+  width: 150px;
+  height: 150px;
+  border-color: rgba(215, 109, 119, 0.8);
+  animation-duration: 8s;
+  animation-direction: reverse;
+}
+
+.vortexRing:nth-child(3) {
+  width: 100px;
+  height: 100px;
+  border-color: rgba(58, 28, 113, 0.8);
+  animation-duration: 6s;
+}
+
+.vortexCore {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle, #fff 0%, #d76d77 50%, #3a1c71 100%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+  animation: pulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes pulse {
+  from { transform: translate(-50%, -50%) scale(0.8); box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); }
+  to { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 0 30px rgba(255, 255, 255, 0.9); }
+}
+
+.safetyInfo {
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.safetyInfo h2 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.safetyList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.safetyList li {
+  position: relative;
+  padding: 1rem 1rem 1rem 3rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  color: #2c3e50;
+}
+
+.safetyList li::before {
+  content: '⚠️';
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .machineContainer {
+    grid-template-columns: 1fr;
+  }
+  
+  .machineVisualization {
+    height: 300px;
+  }
+  
+  .safetyList {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 2rem 1rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .displaySection {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .dateInputWrapper {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .calendarButton {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .machinePanel {
+    padding: 1.5rem;
+  }
+  
+  .yearValue {
+    font-size: 2.5rem;
+  }
+  
+  .travelButton {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .safetyInfo {
+    padding: 1.5rem;
+  }
+  
+  .safetyInfo h2 {
+    font-size: 1.3rem;
+  }
+}
+
+/* Hover effects for inputs */
+.dateInput:hover, .destinationInput:hover {
+  border-color: #d1d1d1;
+}
+
+/* Focus within effect for form controls */
+.dateControl:focus-within label, .locationControl:focus-within label {
+  color: #3a1c71;
+}
+
+/* Custom styling for date input calendar icon */
+.dateInput::-webkit-calendar-picker-indicator {
+  filter: invert(25%) sepia(90%) saturate(1352%) hue-rotate(232deg) brightness(50%) contrast(85%);
+  cursor: pointer;
+}
+
+/* Additional animations for the time vortex */
+.machineVisualization::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, transparent 30%, #1a1a2e 70%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.machineVisualization::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(58, 28, 113, 0.2) 0%, rgba(215, 109, 119, 0.2) 50%, rgba(255, 175, 123, 0.2) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Glowing effect for the travel button */
+.travelButton::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+  transform: scale(0);
+  transition: transform 0.5s ease-out;
+  z-index: 0;
+}
+
+.travelButton:hover::before {
+  transform: scale(1);
+}
+
+.travelButton span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Styling for the status message transitions */
+.statusMessage {
+  transition: background-color 0.3s ease, color 0.3s ease, border-left 0.3s ease;
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.statusMessage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #3a1c71, #d76d77);
+  opacity: 0.7;
+}
+
+.statusMessage.success::before {
+  background: #28a745;
+}
+
+/* Enhanced animations for the time vortex */
+.machineVisualization {
+  height: 100%;
+  min-height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+
+.machineVisualization::before {
+  content: '';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  top: -25%;
+  left: -25%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Particle effects for the vortex */
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: particleMove 8s linear infinite;
+}
+
+@keyframes particleMove {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x, 100px), var(--y, 100px)) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Enhanced styling for the safety info section */
+.safetyInfo {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.safetyInfo:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.safetyList li {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.safetyList li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  background-color: #f0f0f0;
+}
+
+/* Pulsating effect for the energy bar when low */
+@keyframes pulsate {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+.energyLevel[style*="background-color: #e74c3c"] {
+  animation: pulsate 1.5s ease-in-out infinite;
+}
+
+/* Enhanced styling for the year value display */
+.yearValue {
+  position: relative;
+  display: inline-block;
+}
+
+.yearValue::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #3a1c71, transparent);
+}
+
+/* Improved focus states for interactive elements */
+.dateInput:focus,
+.destinationInput:focus,
+.calendarButton:focus,
+.travelButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(58, 28, 113, 0.3);
+}
+
+/* Additional styling for the calendar wrapper */
+.calendarWrapper {
+  position: relative;
+  z-index: 10;
+  background-color: white;
+}
+
+/* Styling for disabled state of travel button */
+.travelButton:disabled {
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+  transform: none;
+  box-shadow: none;
+}
+
+/* Enhanced hover effect for the calendar button */
+.calendarButton:hover {
+  color: white;
+  background: linear-gradient(135deg, #3a1c71 0%, #d76d77 100%);
+}
+
+/* Styling for the time distance indicator */
+.timeDistance {
+  position: relative;
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  background-color: rgba(58, 28, 113, 0.1);
+  margin-top: 0.5rem;
+}
+
+/* Additional styling for the machine panel */
+.machinePanel {
+  position: relative;
+  overflow: hidden;
+}
+
+.machinePanel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(to right, #3a1c71, #d76d77, #ffaf7b);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* Styling for form labels with icon indicators */
+.dateControl label::before,
+.locationControl label::before {
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+.dateControl label::before {
+  content: '🗓️';
+}
+
+.locationControl label::before {
+  content: '📍';
+}
+
+/* Print styles */
+@media print {
+  .timeMachine {
+    background-color: white;
+    color: black;
+  }
+  
+  .hero, 
+  .machineVisualization,
+  .calendarButton,
+  .travelButton {
+    display: none;
+  }
+  
+  .machineContainer {
+    grid-template-columns: 1fr;
+  }
+  
+  .machinePanel,
+  .safetyInfo {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .hero {
+    background: #000;
+    color: #fff;
+  }
+  
+  .travelButton,
+  .calendarButton:hover {
+    background: #000;
+    color: #fff;
+    border: 2px solid #fff;
+  }
+  
+  .energyLevel {
+    border: 1px solid #000;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .machinePanel,
+  .safetyInfo,
+  .timeDisplay,
+  .energyDisplay {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+  }
+  
+  .dateControl label, 
+  .locationControl label,
+  .safetyInfo h2,
+  .yearValue,
+  .energyValue {
+    color: #ecf0f1;
+  }
+  
+  .dateInput, 
+  .destinationInput,
+  .calendarButton {
+    background-color: #34495e;
+    color: #ecf0f1;
+    border-color: #4a6278;
+  }
+  
+  .safetyList li {
+    background-color: #34495e;
+    color: #ecf0f1;
+  }
+  
+  .statusMessage {
+    background-color: #34495e;
+    color: #ecf0f1;
+  }
+  
+  .success {
+    background-color: #1e4620;
+    color: #d4edda;
+  }
+}
+
+/* Animation for the travel button when clicked */
+.travelButton:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* Enhanced styling for the energy display */
+.energyDisplay {
+  position: relative;
+  overflow: hidden;
+}
+
+.energyDisplay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+}
+
+/* Styling for the time vortex particles */
+.timeVortex::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 5%),
+    radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 5%),
+    radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 5%),
+    radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 5%);
+  animation: sparkle 4s linear infinite;
+}
+
+@keyframes sparkle {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+}
