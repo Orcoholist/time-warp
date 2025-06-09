@@ -8,7 +8,7 @@ export default function Home() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [activeSection, setActiveSection] = useState(0);
   
-  // Update time every second
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
@@ -17,7 +17,7 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
   
-  // Auto-rotate featured sections
+
   useEffect(() => {
     const rotationTimer = setInterval(() => {
       setActiveSection((prev) => (prev + 1) % 3);
