@@ -19,7 +19,7 @@ const Router: React.FC = () => {
           <Link href="/contact">Контакты</Link>
         </li>
         <li>
-          <Link href="/services">Сервисы</Link>
+          <Link href="/our-services">Сервисы</Link>
         </li>
         <li>
           <Link href="/timemachine">Машина времени</Link>

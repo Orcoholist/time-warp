@@ -42,7 +42,7 @@ export default function Home() {
         <section className={styles.hero}>
           <h1 className={styles.title}>Путешествия во времени</h1>
           <p className={styles.subtitle}>Исследуйте прошлое, настоящее и будущее</p>
-          <div className={styles.currentTime}>
+          <div className={styles.currentTime} suppressHydrationWarning={true}>
             Текущее время: {currentTime.toLocaleTimeString()}
           </div>
         </section>
