@@ -7,9 +7,11 @@ import styles from "./home.module.css";
 export default function Home() {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [activeSection, setActiveSection] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
   
 
   useEffect(() => {
+    setIsVisible(true);
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
@@ -21,7 +23,7 @@ export default function Home() {
   useEffect(() => {
     const rotationTimer = setInterval(() => {
       setActiveSection((prev) => (prev + 1) % 3);
-    }, 5000);
+    }, 6000);
     
     return () => clearInterval(rotationTimer);
   }, []);
@@ -35,8 +37,21 @@ export default function Home() {
     { year: 2045, event: "Технологическая сингулярность" },
   ];
   
+  // Handle navigation for featured sections
+  const handlePrevSection = () => {
+    setActiveSection((prev) => (prev - 1 + 3) % 3);
+  };
+  
+  const handleNextSection = () => {
+    setActiveSection((prev) => (prev + 1) % 3);
+  };
+  
+  const goToSection = (index: number) => {
+    setActiveSection(index);
+  };
+  
   return (
-    <div className={styles.app}>
+    <div className={`${styles.app} ${isVisible ? styles.visible : ''}`}>
       <main className={styles.container}>
         {/* Hero Section */}
         <section className={styles.hero}>
@@ -63,7 +78,7 @@ export default function Home() {
           </div>
         </div>
         
-        {/* Featured Sections */}
+        {/* Featured Sections with Navigation Arrows */}
         <div className={styles.featuredSections}>
           <div className={`${styles.featuredSection} ${activeSection === 0 ? styles.active : ''}`}>
             <h2>Исторические события</h2>
@@ -81,6 +96,27 @@ export default function Home() {
             <h2>Личные путешествия</h2>
             <p>Создайте свой собственный маршрут во времени. Посетите значимые события вашей жизни или жизни ваших предков.</p>
             <button className={styles.actionButton}>Создать маршрут</button>
+          </div>
+          
+          {/* Simple Arrow Navigation */}
+          <div className={styles.sectionControls}>
+            <button className={`${styles.controlButton} ${styles.prevButton}`} onClick={handlePrevSection}>
+              &lt;
+            </button>
+            <button className={`${styles.controlButton} ${styles.nextButton}`} onClick={handleNextSection}>
+              &gt;
+            </button>
+          </div>
+          
+          {/* Section Indicators */}
+          <div className={styles.sectionIndicators}>
+            {[0, 1, 2].map((index) => (
+              <div 
+                key={index}
+                className={`${styles.indicator} ${index === activeSection ? styles.active : ''}`}
+                onClick={() => goToSection(index)}
+              />
+            ))}
           </div>
         </div>
         
