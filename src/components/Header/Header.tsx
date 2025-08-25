@@ -1,42 +1,54 @@
-'use client';
-
+// src/components/Header/Header.tsx
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setActiveLink } from '../../features/headerSlice';
+import { logout } from '../../features/authSlice';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { navigationItems } from '../../data/navigationItems';
 import './Header.css';
+import { RootState } from '../../app/store'; // 👈 Импортируем RootState
 
 const Header = () => {
   const dispatch = useDispatch();
-  // Удаляем неиспользуемую переменную activeLink, так как мы используем pathname для определения активной ссылки
+  const { activeLinkId } = useSelector((state: RootState) => state.header); // 👈 Используем RootState
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth); // 👈 Используем RootState
   const pathname = usePathname();
-  
-  // Устанавливаем активную ссылку на основе текущего пути
+
+  const items = React.useMemo(
+    () => navigationItems(isAuthenticated),
+    [isAuthenticated]
+  );
+
   React.useEffect(() => {
-    const currentItem = navigationItems.find(item => item.path === pathname);
+    const currentItem = items.find(item => item.path === pathname);
     if (currentItem) {
       dispatch(setActiveLink(currentItem.id.toString()));
     }
-  }, [pathname, dispatch]);
+  }, [pathname, items, dispatch]);
 
-  const handleLinkClick = (linkId: string) => {
-    dispatch(setActiveLink(linkId));
+  const handleLogout = () => {
+    dispatch(logout());
   };
 
   return (
     <div className="header">
       <ul className="header__list">
-        {navigationItems.map((item) => (
+        {items.map((item) => (
           <li
             key={item.id}
-            className={pathname === item.path ? "active" : ""}
-            onClick={() => handleLinkClick(item.id.toString())}
+            className={activeLinkId === item.id.toString() ? "active" : ""}
           >
             <Link href={item.path}>{item.title}</Link>
           </li>
         ))}
+        {isAuthenticated && (
+          <li>
+            <button onClick={handleLogout} className="logout-button">
+              Выйти
+            </button>
+          </li>
+        )}
       </ul>
     </div>
   );

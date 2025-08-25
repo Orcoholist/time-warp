@@ -1,7 +1,12 @@
+// src/features/headerSlice.ts
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  activeLink: null,
+interface HeaderState {
+  activeLinkId: string | null;
+}
+
+const initialState: HeaderState = {
+  activeLinkId: null,
 };
 
 const headerSlice = createSlice({
@@ -9,7 +14,7 @@ const headerSlice = createSlice({
   initialState,
   reducers: {
     setActiveLink(state, action) {
-      state.activeLink = action.payload;
+      state.activeLinkId = action.payload;
     },
   },
 });
