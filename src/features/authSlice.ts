@@ -1,20 +1,30 @@
 // src/features/authSlice.ts
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-  isAuthenticated: !!localStorage.getItem('authToken'),
+// interface AuthState {
+//   isAuthenticated: boolean;
+// }
+
+const initialState = () => {
+  // Проверяем наличие окна (client-side)
+  const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+  return {
+    isAuthenticated: !!token,
+  };
 };
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState,
+  initialState: initialState(),
   reducers: {
-    login: (state) => {
+    login(state) {
       state.isAuthenticated = true;
     },
-    logout: (state) => {
+    logout(state) {
       state.isAuthenticated = false;
-      localStorage.removeItem('authToken');
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('authToken');
+      }
     },
   },
 });
