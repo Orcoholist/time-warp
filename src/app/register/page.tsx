@@ -22,7 +22,8 @@ export default function RegisterPage() {
     }
 
     try {
-      const res = await fetch('https://time-warp-back.vercel.app/auth/register', {
+      const res = await fetch('https://time-warp-back.onrender.com/auth/register', {
+      // const res = await fetch('https://time-warp-back.onrender.com/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -72,6 +73,7 @@ export default function RegisterPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className={styles.input}
+              autoComplete="current-password"
             />
           </div>
 
