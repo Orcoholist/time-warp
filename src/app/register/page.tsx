@@ -11,6 +11,14 @@ export default function RegisterPage() {
   const [success, setSuccess] = useState<string | null>(null);
   const router = useRouter();
 
+  function saveToken(token: string) {
+  localStorage.setItem('accessToken', token);
+}
+
+// function getToken(): string | null {
+//   return localStorage.getItem('accessToken');
+// }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -22,8 +30,8 @@ export default function RegisterPage() {
     }
 
     try {
+      // const res = await fetch('http://localhost:3000/auth/register', {
       const res = await fetch('https://time-warp-back.onrender.com/auth/register', {
-      // const res = await fetch('https://time-warp-back.onrender.com/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -34,6 +42,7 @@ export default function RegisterPage() {
 
       if (res.ok) {
         setSuccess('Регистрация успешна! Перейдите на страницу входа.');
+         saveToken(data.accessToken);
         setTimeout(() => router.push('/'), 3000);
       } else {
         setError(data.message || 'Ошибка регистрации');
