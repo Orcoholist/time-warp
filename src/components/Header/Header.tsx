@@ -13,6 +13,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const { activeLinkId } = useSelector((state: RootState) => state.header); // 👈 Используем RootState
   const { isAuthenticated } = useSelector((state: RootState) => state.auth); // 👈 Используем RootState
+  
   const pathname = usePathname();
 
   const items = React.useMemo(

@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import styles from './registration.module.css';
+import { useDispatch } from 'react-redux'; // ✅ Импортируем useDispatch
+import { loginSuccess } from '../../features/authSlice';
 
 export default function RegisterPage() {
   const [username, setUsername] = useState('');
@@ -10,14 +12,11 @@ export default function RegisterPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const router = useRouter();
+  const dispatch = useDispatch(); // ✅ Инициализируем dispatch
 
   function saveToken(token: string) {
-  localStorage.setItem('accessToken', token);
-}
-
-// function getToken(): string | null {
-//   return localStorage.getItem('accessToken');
-// }
+    localStorage.setItem('accessToken', token);
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,19 +29,18 @@ export default function RegisterPage() {
     }
 
     try {
-      // const res = await fetch('http://localhost:3000/auth/register', {
-      const res = await fetch('https://time-warp-back.onrender.com/auth/register', {
+      const res = await fetch('https://time-warp-back-production.up.railway.app/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       });
 
-
       const data = await res.json();
 
       if (res.ok) {
         setSuccess('Регистрация успешна! Перейдите на страницу входа.');
-         saveToken(data.accessToken);
+        dispatch(loginSuccess({ username: data.username })); // ✅ Теперь dispatch доступен
+        saveToken(data.accessToken);
         setTimeout(() => router.push('/'), 3000);
       } else {
         setError(data.message || 'Ошибка регистрации');

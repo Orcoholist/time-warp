@@ -1,9 +1,10 @@
-// src/app/login/page.tsx
 'use client'
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import styles from './login.module.css'; // Используем те же стили
+import styles from './login.module.css';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../../features/authSlice'; // 👈 Импортируем экшн
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -11,6 +12,7 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const router = useRouter();
+  const dispatch = useDispatch(); // 👈 Инициализируем dispatch
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,8 +25,7 @@ export default function LoginPage() {
     }
 
     try {
-      // const res = await fetch('http://localhost:3000/auth/login', {
-      const res = await fetch('https://time-warp-back.onrender.com/auth/login', {
+      const res = await fetch('https://time-warp-back-production.up.railway.app/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -33,8 +34,9 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (res.ok) {
-        // Сохраняем токен в localStorage
-        localStorage.setItem('authToken', data.token);
+        // Сохраняем токен с тем же именем, что и в RegisterPage
+        localStorage.setItem('accessToken', data.token); // 👈 Используем 'accessToken'
+        dispatch(loginSuccess({ username: data.username })); // ✅ Обновляем Redux
         setSuccess('Вход выполнен успешно!');
         setTimeout(() => router.push('/'), 2000);
       } else {
