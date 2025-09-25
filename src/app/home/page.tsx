@@ -34,7 +34,9 @@ export default function Home() {
     { year: 2077, event: "Колонизация Марса" },
     { year: 1986, event: "Чернобыльская катастрофа" },
     { year: 1945, event: "Окончание Второй мировой войны" },
+    { year: 2022, event: "Начало СВО" },
     { year: 2045, event: "Технологическая сингулярность" },
+    
   ];
   
   // Handle navigation for featured sections
