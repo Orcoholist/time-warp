@@ -17,23 +17,25 @@ const Contact: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Получаем данные формы через FormData API
-    const form = e.currentTarget as HTMLFormElement;
-    const formData = new FormData(form);
+    // Клиентская валидация
+    if (!name.trim()) {
+      setError('Пожалуйста, введите ваше имя');
+      return;
+    }
 
-    // Извлекаем значения
-    const name = formData.get('name') as string;
-    const email = formData.get('email') as string;
-    const message = formData.get('message') as string;
-    // const botField = formData.get('bot-field') as string;
+    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError('Пожалуйста, введите корректный email');
+      return;
+    }
 
-    // Проверка на спам
-    // if (botField.trim()) {
-    //   setError('Ошибка: автоматический бот');
-    //   return;
-    // }
+    if (!message.trim()) {
+      setError('Пожалуйста, введите ваше сообщение');
+      return;
+    }
 
     try {
+      // console.log('Отправляем данные:', { name, email, message });
+
       // const response = await fetch('http://localhost:3000/feedback', {
       const response = await fetch(
         'https://time-warp-back-production.up.railway.app/feedback',
