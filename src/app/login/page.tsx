@@ -12,7 +12,7 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const router = useRouter();
-  const dispatch = useDispatch(); // 👈 Инициализируем dispatch
+  const dispatch = useDispatch(); 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,8 +35,8 @@ export default function LoginPage() {
 
       if (res.ok) {
         // Сохраняем токен с тем же именем, что и в RegisterPage
-        localStorage.setItem('accessToken', data.token); // 👈 Используем 'accessToken'
-        dispatch(loginSuccess({ username: data.username })); // ✅ Обновляем Redux
+        localStorage.setItem('accessToken', data.token); //  Используем 'accessToken'
+        dispatch(loginSuccess({ username: data.username })); //  Обновляем Redux
         setSuccess('Вход выполнен успешно!');
         setTimeout(() => router.push('/'), 2000);
       } else {
