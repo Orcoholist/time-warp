@@ -25,13 +25,13 @@ const Contact: React.FC = () => {
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
     const message = formData.get('message') as string;
-    const botField = formData.get('bot-field') as string;
+    // const botField = formData.get('bot-field') as string;
 
     // Проверка на спам
-    if (botField.trim()) {
-      setError('Ошибка: автоматический бот');
-      return;
-    }
+    // if (botField.trim()) {
+    //   setError('Ошибка: автоматический бот');
+    //   return;
+    // }
 
     try {
       // const response = await fetch('http://localhost:3000/feedback', {
@@ -206,7 +206,7 @@ const Contact: React.FC = () => {
                   rows={5}
                 ></textarea>
               </div>
-
+              {/* 
               <div
                 style={{
                   position: 'absolute',
@@ -215,14 +215,14 @@ const Contact: React.FC = () => {
                   height: '1px',
                   overflow: 'hidden',
                 }}
-              >
-                <input
+              > */}
+              {/* <input
                   type="text"
-                  name="bot-field"
+                  name="botField"
                   aria-label="Не заполняйте это поле"
                   style={{ display: 'none' }}
-                />
-              </div>
+                /> */}
+              {/* </div> */}
 
               <button type="submit" className={styles.submitButton}>
                 Отправить сообщение
