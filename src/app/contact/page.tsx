@@ -34,19 +34,18 @@ const Contact: React.FC = () => {
     }
 
     try {
-      // console.log('Отправляем данные:', { name, email, message });
-
-      // const response = await fetch('http://localhost:3000/feedback', {
-      const response = await fetch(
-        'https://time-warp-back-production.up.railway.app/feedback',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ name, email, message }),
-        }
-      );
+      const response = await fetch('https://formspree.io/f/xpwyqloe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          reply_to: email,
+        }),
+      });
 
       if (response.ok) {
         setSubmitted(true);
@@ -60,7 +59,7 @@ const Contact: React.FC = () => {
         throw new Error('Ошибка при отправке сообщения');
       }
     } catch (err) {
-      console.error(err, error);
+      console.error('Ошибка Formspree:', err, error);
       setError('Произошла ошибка. Попробуйте позже.');
     }
   };
@@ -225,6 +224,8 @@ const Contact: React.FC = () => {
                   style={{ display: 'none' }}
                 /> */}
               {/* </div> */}
+
+              <input type="hidden" name="email" value="orcoholist@mail.ru" />
 
               <button type="submit" className={styles.submitButton}>
                 Отправить сообщение
